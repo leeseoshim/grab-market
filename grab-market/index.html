@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <title>그랩마켓</title>
+    <link href="index.css" type="text/css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div id="header-area">
+        <img src="images/icons/logo.png" />
+      </div>
+    </div>
+    <div id="body">
+      <div id="banner">
+        <img src="images/banners/banner1.png" />
+      </div>
+      <h1>판매되는 상품들</h1>
+      <div id="product-list">
+        <div className="product-card">
+          <div>
+            <img className="product-img" src="images/products/keyboard1.jpg" />
+          </div>
+          <div className="product-content">
+            <span className="product-name"> keyboard </span>
+            <span className="product-price"> 10000 </span>
+          </div>
+          <div class></div>
+        </div>
+      </div>
+    </div>
+    <div id="footer"></div>
+  </body>
+  <script>
+    axios
+      .get(
+        "https://4c062318-df93-4cef-bc2e-8ae8f3970fe1.mock.pstmn.io/products"
+      )
+      .then(function (result) {
+        console.log("통신결과: ", result);
+        const products = result.data.products;
+
+        let productsHtml = "";
+        for (var i = 0; i < products.length; i++) {
+          let product = products[i];
+          productsHtml =
+            productsHtml +
+            '<div class="product-card">' +
+            "<div>" +
+            '<img class="product-img" src="' +
+            product.imageUrl +
+            '" />' +
+            "</div>" +
+            '<div class="product-contents">' +
+            '<span class="product-name">' +
+            product.name +
+            "</span>" +
+            '<span class="product-price">' +
+            product.price +
+            "원" +
+            "</span>" +
+            '<div class="product-seller">' +
+            '<img class="product-avatar" src="images/icons/avatar.png" />' +
+            "<span>" +
+            product.seller +
+            "</span>" +
+            "</div>" +
+            "</div>" +
+            "</div>";
+        }
+        document.querySelector("#product-list").innerHTML = productsHtml;
+      })
+      .catch(function (error) {
+        console.error("에러발생: ", error);
+      });
+  </script>
+</html>
+
+<!-- var products = [
+{
+  name: "농구공",
+  price: 10000,
+  seller: "Jordan",
+  imageUrl: "images/products/basketball1.jpeg",
+},
+{
+  name: "축구공",
+  price: 50000,
+  seller: "Jordan",
+  imageUrl: "images/products/soccerball1.jpg",
+},
+{
+  name: "키보드",
+  price: 15000,
+  seller: "Grab",
+  imageUrl: "images/products/keyboard1.jpg",
+},
+]; -->
